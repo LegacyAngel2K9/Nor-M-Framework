@@ -32,7 +32,7 @@ Developed by **Legacy DEV Team**
 
 ### 🛠 2. Configure Database  
 1. Ensure **oxmysql** is installed on your server.  
-2. Import norm.sql into your database
+2. Import `norm.sql` into your database
 3. Configure your **database settings** in `config/config.lua`:
 
 ```lua
@@ -49,7 +49,7 @@ Config.Database = {
 ---
 
 ### ⚙️ 3. Start the Resource  
-1. Add the following line to your **server.cfg**:
+1. Add the following line to your `server.cfg`:
 
 ```cfg
 ensure NorM
