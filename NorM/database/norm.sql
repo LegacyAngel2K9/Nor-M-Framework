@@ -1,0 +1,64 @@
+
+-- Nor-M Framework Database Schema
+-- Author: Legacy DEV Team
+
+-- Players Table
+CREATE TABLE IF NOT EXISTS players (
+    id INT AUTO_INCREMENT PRIMARY KEY,
+    identifier VARCHAR(255) NOT NULL UNIQUE,
+    name VARCHAR(255),
+    job VARCHAR(50) DEFAULT 'unemployed',
+    cash INT DEFAULT 5000,
+    bank INT DEFAULT 15000,
+    last_logout TIMESTAMP DEFAULT CURRENT_TIMESTAMP
+);
+
+-- Vehicles Table
+CREATE TABLE IF NOT EXISTS vehicles (
+    id INT AUTO_INCREMENT PRIMARY KEY,
+    plate VARCHAR(50) NOT NULL UNIQUE,
+    model VARCHAR(50) NOT NULL,
+    owner VARCHAR(255) NOT NULL,
+    stored BOOLEAN DEFAULT 1
+);
+
+-- Bans Table
+CREATE TABLE IF NOT EXISTS bans (
+    id INT AUTO_INCREMENT PRIMARY KEY,
+    identifier VARCHAR(255) NOT NULL UNIQUE,
+    reason TEXT NOT NULL,
+    banned_at TIMESTAMP DEFAULT CURRENT_TIMESTAMP
+);
+
+-- Jobs Table
+CREATE TABLE IF NOT EXISTS jobs (
+    id INT AUTO_INCREMENT PRIMARY KEY,
+    job_name VARCHAR(50) NOT NULL UNIQUE,
+    label VARCHAR(100) NOT NULL
+);
+
+-- Police Reports Table
+CREATE TABLE IF NOT EXISTS police_reports (
+    id INT AUTO_INCREMENT PRIMARY KEY,
+    officer VARCHAR(255) NOT NULL,
+    suspect VARCHAR(255) NOT NULL,
+    report TEXT NOT NULL,
+    date TIMESTAMP DEFAULT CURRENT_TIMESTAMP
+);
+
+-- Jail Table
+CREATE TABLE IF NOT EXISTS jail (
+    id INT AUTO_INCREMENT PRIMARY KEY,
+    player_id VARCHAR(255) NOT NULL,
+    jail_time INT NOT NULL,
+    release_time TIMESTAMP DEFAULT CURRENT_TIMESTAMP
+);
+
+-- EMS Records Table
+CREATE TABLE IF NOT EXISTS ems_records (
+    id INT AUTO_INCREMENT PRIMARY KEY,
+    patient VARCHAR(255) NOT NULL,
+    medic VARCHAR(255) NOT NULL,
+    treatment TEXT NOT NULL,
+    date TIMESTAMP DEFAULT CURRENT_TIMESTAMP
+);
