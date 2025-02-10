@@ -14,11 +14,11 @@ Developed by **Legacy DEV Team**
 ✅ **Fully Custom Lua-Based Framework**  
 ✅ **Custom UI for Menus & HUD**  
 ✅ **Police & EMS Systems**  
-✅ **Vehicle Controls (Engine, Locking, Seatbelt, Cruise Control)**  
-✅ **Admin Tools (Revive, Heal, Kick, Ban, Teleport)**  
-✅ **Chat Commands (`/me`, `/do`, `/911`, `/ooc`)**  
+✅ **Vehicle Controls**  
+✅ **Admin Tools**  
+✅ **Chat Commands**  
 ✅ **Anti-Cheat Protection**  
-✅ **Integrated Database (MySQL or SQLite)**  
+✅ **Integrated Database**  
 
 ---
 
@@ -32,35 +32,7 @@ Developed by **Legacy DEV Team**
 
 ### 🛠 2. Configure Database  
 1. Ensure **oxmysql** is installed on your server.  
-2. Import the following SQL into your database:
-
-```sql
-CREATE TABLE IF NOT EXISTS players (
-    id INT AUTO_INCREMENT PRIMARY KEY,
-    identifier VARCHAR(255) NOT NULL UNIQUE,
-    name VARCHAR(255),
-    job VARCHAR(50) DEFAULT 'unemployed',
-    cash INT DEFAULT 5000,
-    bank INT DEFAULT 15000,
-    last_logout TIMESTAMP DEFAULT CURRENT_TIMESTAMP
-);
-
-CREATE TABLE IF NOT EXISTS vehicles (
-    id INT AUTO_INCREMENT PRIMARY KEY,
-    plate VARCHAR(50) NOT NULL UNIQUE,
-    model VARCHAR(50) NOT NULL,
-    owner VARCHAR(255) NOT NULL,
-    stored BOOLEAN DEFAULT 1
-);
-
-CREATE TABLE IF NOT EXISTS bans (
-    id INT AUTO_INCREMENT PRIMARY KEY,
-    identifier VARCHAR(255) NOT NULL UNIQUE,
-    reason TEXT NOT NULL,
-    banned_at TIMESTAMP DEFAULT CURRENT_TIMESTAMP
-);
-```
-
+2. Import norm.sql into your database
 3. Configure your **database settings** in `config/config.lua`:
 
 ```lua
