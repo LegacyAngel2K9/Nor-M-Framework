@@ -17,6 +17,7 @@ shared_scripts {
 }
 
 client_scripts {
+    'core/client/ui.lua',  -- UI control script (NEW)
     'core/client/player.lua',
     'core/client/jobs.lua',
     'core/client/vehicles.lua',
@@ -29,6 +30,7 @@ client_scripts {
 
 server_scripts {
     '@oxmysql/lib/MySQL.lua', -- Ensure you have MySQL installed
+    'core/server/ui.lua',  -- UI control script (NEW)
     'core/server/database.lua',
     'core/server/commands.lua',
     'core/server/jobs.lua',

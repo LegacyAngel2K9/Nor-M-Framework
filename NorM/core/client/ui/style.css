@@ -1,0 +1,30 @@
+body {
+    font-family: Arial, sans-serif;
+    text-align: center;
+    background: none; /* ✅ Fixes the dark background */
+    color: white;
+}
+
+
+#menu {
+    position: absolute;
+    top: 50%;
+    left: 50%;
+    transform: translate(-50%, -50%);
+    background: rgba(50, 50, 50, 0.95);
+    padding: 20px;
+    border-radius: 10px;
+    display: none; /* ✅ This will hide the UI by default */
+}
+
+.hidden {
+    display: none;
+}
+
+button {
+    display: block;
+    margin: 10px auto;
+    padding: 10px 20px;
+    font-size: 18px;
+    cursor: pointer;
+}

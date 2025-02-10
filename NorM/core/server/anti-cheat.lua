@@ -1,4 +1,4 @@
--- Nor-M Framework | Basic Anti-Cheat System (Server-Side)
+-- Nor-M Framework | Anti-Cheat System (Server-Side)
 -- Author: Legacy DEV Team
 -- Website: https://legacyh.dev
 -- Support: https://discord.legacyh.dev
@@ -21,39 +21,25 @@ local blacklistedWeapons = {
 local maxHealth = 200
 local maxArmor = 100
 
--- Function: Detect Blacklisted Weapons
-Citizen.CreateThread(function()
-    while true do
-        Citizen.Wait(5000)
-        for _, playerId in ipairs(GetPlayers()) do
-            local playerPed = GetPlayerPed(playerId)
-            for _, weapon in ipairs(blacklistedWeapons) do
-                if HasPedGotWeapon(playerPed, GetHashKey(weapon), false) then
-                    RemoveWeaponFromPed(playerPed, GetHashKey(weapon))
-                    DropPlayer(playerId, "Detected using blacklisted weapon: " .. weapon)
-                end
-            end
-        end
-    end
-end)
-
 -- Function: Detect Health/Armor Hacks
 Citizen.CreateThread(function()
     while true do
         Citizen.Wait(5000)
         for _, playerId in ipairs(GetPlayers()) do
             local playerPed = GetPlayerPed(playerId)
-            local health = GetEntityHealth(playerPed)
-            local armor = GetPedArmour(playerPed)
+            if DoesEntityExist(playerPed) then
+                local health = GetEntityHealth(playerPed)
+                local armor = GetPedArmour(playerPed)
 
-            if health > maxHealth then
-                SetEntityHealth(playerPed, maxHealth)
-                DropPlayer(playerId, "Detected exceeding maximum health limit.")
-            end
+                if health > maxHealth then
+                    SetEntityHealth(playerPed, maxHealth)
+                    DropPlayer(playerId, "Detected exceeding maximum health limit.")
+                end
 
-            if armor > maxArmor then
-                SetPedArmour(playerPed, maxArmor)
-                DropPlayer(playerId, "Detected exceeding maximum armor limit.")
+                if armor > maxArmor then
+                    SetPedArmour(playerPed, maxArmor)
+                    DropPlayer(playerId, "Detected exceeding maximum armor limit.")
+                end
             end
         end
     end
@@ -63,23 +49,19 @@ end)
 RegisterServerEvent("norm:checkVehicleSpawn")
 AddEventHandler("norm:checkVehicleSpawn", function(vehicleModel)
     local _source = source
-    local playerName = GetPlayerName(_source)
     if not IsModelInCdimage(vehicleModel) then
         DropPlayer(_source, "Detected spawning unauthorized vehicles.")
     end
 end)
 
--- Function: Detect Rapid Fire (Weapon Damage Modifiers)
-Citizen.CreateThread(function()
-    while true do
-        Citizen.Wait(1000)
-        for _, playerId in ipairs(GetPlayers()) do
-            local playerPed = GetPlayerPed(playerId)
-            local weapon = GetSelectedPedWeapon(playerPed)
-            local damage = GetWeaponDamage(weapon)
-
-            if damage > 100 then
-                DropPlayer(playerId, "Detected weapon damage modification (Rapid Fire).")
+-- Function: Move Weapon Detection to Client
+RegisterNetEvent("norm:checkWeapons")
+AddEventHandler("norm:checkWeapons", function(weapons)
+    local _source = source
+    for _, weapon in ipairs(weapons) do
+        for _, blacklisted in ipairs(blacklistedWeapons) do
+            if weapon == blacklisted then
+                DropPlayer(_source, "Detected using blacklisted weapon: " .. weapon)
             end
         end
     end
